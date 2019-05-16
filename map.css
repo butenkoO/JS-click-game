@@ -1,0 +1,11 @@
+#map {
+    width: 800px;
+    height: 800px;
+    float: left;
+    
+p {
+    float: left;
+    padding-left: 15px;
+    font-size: 25px;
+
+}

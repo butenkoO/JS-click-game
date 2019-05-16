@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="map.css">
+</head>
+<body>
+    <h1 id="head">Пошук скарбу</h1>
+    <img id="map" src="https://nostarch.com/images/treasuremap.png">
+    <p id="distance">Спробуй знайти</p></br>
+    <p id="clicks">В тебе є 100 спроб!</p>
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <script>
+        alert("Гра знайди скарб. У тебе є 100 спроб щоб найти скарб. Клікай по карті в пошуках. На допомогу тобі прийдуть підказки як далеко ти від скарбу")
+    var getRandomNum = function(size){
+      return Math.floor(Math.random()* size);  
+    };
+
+    var getDistance = function (event, target) {
+        var diffX = event.offsetX - target.x;
+        var diffY = event.offsetY - target.y;
+        return Math.sqrt((diffX * diffX) + (diffY * diffY)); 
+    };
+
+    var getDistanceHint = function(distance){
+        if(distance < 50) {
+            return "Жарко";
+        } else if(distance < 70) {
+            return "Близько";
+        } else if(distance < 100) {
+            return "Майже";
+        } else if(distance < 150) {
+            return "На правильному шляху";
+        } else if(distance < 200) {
+            return "Шукай ще";
+        } else if(distance < 300) {
+            return "Думай-те!";
+        } else if(distance < 400) {
+            return "Холодно";
+        } else if(distance < 450) {
+            return "Холоднооо!";
+        } else if(distance < 500) {
+            return "Дууууууууууууже холодно!!!";
+        }
+    };
+
+    var width = 800;
+    var height = 800;
+    var clicks = 0;
+    var clicksMax = 100;
+    
+    var target = {
+        x: getRandomNum(width),
+        y: getRandomNum(height)
+    };
+    $("#map").click(function(event) {
+        clicks++ ;
+        clicksMax --;
+ var distance = getDistance(event, target);
+    var distanceHint = getDistanceHint(distance);
+    $("#distance").text(distanceHint);
+    if(distance < 25) {
+            alert ("Ти знайшов за " + clicks + " кліків");
+            clicks = 0;
+            clicksMax = 100;
+    };
+    if(clicks == 100) {
+        alert("Ти програв! кількість спроб завершено");
+        clicks = 0;
+        clicksMax = 100;
+    }
+    var last = "Спроб всього " + clicksMax ;
+    $("#clicks").text(last);
+    });
+   
+    </script>    
+</body>
+</html>
